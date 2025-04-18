@@ -1,5 +1,8 @@
 package com.bridgelabz.employee_payroll.dto;
 
+import lombok.extern.slf4j.Slf4j;
+
+
 public class ResponseDTO {
     private String message;
     private Object data;
