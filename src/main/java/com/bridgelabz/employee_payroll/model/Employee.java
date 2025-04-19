@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Employee {
     private String name;
     private double salary;
     private String gender;
-    private String startdate;
+    private LocalDate startdate;
     private String note;
     private String profilepic;
     private List<String> department;

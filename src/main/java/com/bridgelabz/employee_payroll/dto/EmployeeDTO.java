@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -17,13 +18,14 @@ public @ToString class EmployeeDTO {
     @Min(value = 500, message = "Min Wage should be more than 500")
     private double salary;
 
+    @NotNull(message = "Gender needs to be male or female")
     @Pattern(regexp = "male|female", message = "Gender needs to be male or female")
     private String gender;
 
-    @JsonFormat(pattern = "dd mm yyyy")
+    @JsonFormat(pattern = "dd MM yyyy")
     @NotNull(message = "startdate should not be empty")
     @PastOrPresent(message = "startdate should be past or todays date")
-    private String startdate;
+    private LocalDate startdate;
 
     @NotBlank(message = "note should not be blank")
     private String note;

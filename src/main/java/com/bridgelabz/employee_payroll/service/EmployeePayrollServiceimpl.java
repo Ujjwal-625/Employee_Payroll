@@ -3,6 +3,7 @@ package com.bridgelabz.employee_payroll.service;
 
 import com.bridgelabz.employee_payroll.dto.EmployeeDTO;
 import com.bridgelabz.employee_payroll.dto.ResponseDTO;
+import com.bridgelabz.employee_payroll.exception.EmployeePayrollException;
 import com.bridgelabz.employee_payroll.model.Employee;
 import com.bridgelabz.employee_payroll.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,26 +29,38 @@ public class EmployeePayrollServiceimpl implements IEmployeePayrollService {
         try{
         return employeeRepository.findById(empId).get();
         }catch (Exception e){
-            return null;
+            System.out.println("Exception caught "+e.getMessage());
+            throw new EmployeePayrollException("Provided Id is not present");
         }
     }
 
     public Employee createEmployeePayrollData(EmployeeDTO empPayrollDTO) {
-        Employee employee = null;
-        employee = new Employee(empPayrollDTO);
-        employeeRepository.save(employee);
-        return employee;
+        try{
+            Employee employee = null;
+            employee = new Employee(empPayrollDTO);
+            employeeRepository.save(employee);
+            return employee;
+        } catch (Exception e) {
+            throw new EmployeePayrollException(e.getMessage());
+        }
     }
 
     public Employee updateEmployeePayrollData(int empId, EmployeeDTO empPayrollDTO) {
-        Employee empData = this.getEmployeePayrollDataById(empId);
-        empData.setName(empPayrollDTO.getName());
-        empData.setSalary(empPayrollDTO.getSalary());
-        employeeRepository.save(empData);
-        return empData;
+        try{
+            Employee empData = this.getEmployeePayrollDataById(empId);
+            empData.setName(empPayrollDTO.getName());
+            empData.setSalary(empPayrollDTO.getSalary());
+            employeeRepository.save(empData);
+            return empData;
+        } catch (Exception e) {
+            throw new EmployeePayrollException(e.getMessage());
+        }
     }
 
     public void deleteEmployeePayrollData(int empId) {
+        if(!employeeRepository.existsById(empId)){
+            throw new EmployeePayrollException("No Employee found with given id");
+        }
         employeeRepository.deleteById(empId);
     }
 }
