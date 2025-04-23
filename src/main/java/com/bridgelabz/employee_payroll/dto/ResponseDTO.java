@@ -7,6 +7,10 @@ public class ResponseDTO {
     private String message;
     private Object data;
 
+    public ResponseDTO() {
+
+    }
+
     public String getMessage() {
         return message;
     }
