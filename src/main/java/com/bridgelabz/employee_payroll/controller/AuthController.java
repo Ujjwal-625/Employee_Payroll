@@ -1,9 +1,7 @@
 package com.bridgelabz.employee_payroll.controller;
 
 
-import com.bridgelabz.employee_payroll.dto.LoginDTO;
-import com.bridgelabz.employee_payroll.dto.RegisterDTO;
-import com.bridgelabz.employee_payroll.dto.ResponseDTO;
+import com.bridgelabz.employee_payroll.dto.*;
 import com.bridgelabz.employee_payroll.service.UserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,5 +25,15 @@ public class AuthController {
     public ResponseEntity<ResponseDTO> loginUser(@RequestBody LoginDTO loginDTO) {
         ResponseDTO response = userService.loginUser(loginDTO);
         return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @PostMapping("/reset")
+    public ResponseEntity<ResponseDTO> resetPassword(@RequestBody ResetPassdto resetPassdto){
+        return userService.resetPassword(resetPassdto);
+    }
+
+    @PostMapping("/forget")
+    public ResponseEntity<ResponseDTO> forgetPassword(@RequestBody ForgetPassdto forgetPassdto){
+        return userService.forgetPassword(forgetPassdto);
     }
 }
